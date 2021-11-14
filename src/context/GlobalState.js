@@ -40,7 +40,14 @@ const completedProject = (project) => {
         type: 'COMPLETED_PROJECT',
         payload: project
     })
-}  
+} 
+
+const unCompleteProject = (project) => {
+  dispatch({
+      type: 'UNCOMPLETED_PROJECT',
+      payload: project
+  })
+}
 
   return (
     <GlobalContext.Provider
@@ -49,7 +56,8 @@ const completedProject = (project) => {
         completedProjects: state.completedProjects,
         deleteProject: deleteProject,
         addProject: addProject,
-        completedProject: completedProject
+        completedProject: completedProject,
+        unCompleteProject: unCompleteProject
         
       }}
     >

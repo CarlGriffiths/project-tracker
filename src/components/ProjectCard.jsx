@@ -4,7 +4,7 @@ import { GlobalContext } from '../context/GlobalState'
 
 const ProjectCard = ({ project, type }) => {
 
-    const { deleteProject, completedProject } = useContext(GlobalContext);
+    const { deleteProject, completedProject, unCompleteProject } = useContext(GlobalContext);
 
     const extractDate = () => {
         const date = project.time;
@@ -24,7 +24,7 @@ const ProjectCard = ({ project, type }) => {
             {type !== 'completed' ?
                 (
                     <button className="input-button" onClick={() => completedProject(project)}>completed</button>
-                ) : (<button className="input-button" onClick={() => completedProject(project)}>un-complete</button>)}
+                ) : (<button className="input-button" onClick={() => unCompleteProject(project)}>un-complete</button>)}
         </div>
 
     )
