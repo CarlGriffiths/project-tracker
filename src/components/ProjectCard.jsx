@@ -16,18 +16,27 @@ const ProjectCard = ({ project, type }) => {
 
     const completeProject = (project) => {
 
-        //could do
-        //project.dateCompleted = new Date()
-        //instead make immutable
-        let projectToReturn = { ...project, dateCompleted: new Date() }
-        projectToReturn = { ...projectToReturn, timeToCompleteInMins: timeToComplete(projectToReturn) }
+        const dateCompleted = new Date();
+        const timeToCompleteInMins = timeToComplete(project, dateCompleted)
 
+        //could do
+        //project.dateCompleted = new Date() etc
+        //instead make immutable
+
+        let projectToReturn = { 
+            ...project, 
+            dateCompleted: dateCompleted,
+            timeToCompleteInMins: timeToCompleteInMins
+        }
+    
         completedProject(projectToReturn)
     }
 
-    const timeToComplete = (projectToReturn) => {
+    const timeToComplete = (project, dateCompleted) => {
 
-        const timeInMilSec = Math.abs(projectToReturn.dateCompleted - projectToReturn.time)
+        //get the completion time in mins
+        const timeInMilSec = Math.abs(dateCompleted - project.time)
+        //then get it in mins
         const timeInMin = Math.floor((timeInMilSec / 1000) / 60);
 
         return timeInMin;
@@ -37,7 +46,8 @@ const ProjectCard = ({ project, type }) => {
     return (
         <div className="card">
             <h2> {project.title}</h2>
-            {type !== 'completed' ? (<p>Date Created: {extractDate()}</p>) : (<p>Time taken to complete: {project.timeToCompleteInMins} (mins)</p>)}
+            {type !== 'completed' ? (<p>Date Created: {extractDate()}</p>) 
+            : (<p>Time taken to complete: {project.timeToCompleteInMins} (mins)</p>)}
 
 
             <div><button className="input-button" onClick={() => deleteProject(project.id)}>remove</button></div>
